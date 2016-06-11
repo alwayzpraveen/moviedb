@@ -1,96 +1,27 @@
 // MODULE
-var weatherApp = angular.module('weatherApp',['ngRoute']);
+var weatherApp = angular.module('weatherApp',['ngRoute','ngResource']);
+
+//ROUTES
 weatherApp.config(function ($routeProvider){
 
-    $routeProvider
-    .when('/',{
+	$routeProvider
 
-        templateUrl:'pages/main.html',
-        controller: 'mainController'
-    })
-	.when('/second',{
-
-        templateUrl:'pages/second.html',
-        controller:'secondController'
-    })
-    .when('/second/:num',{
-
-        templateUrl:'pages/second.html',
-        controller:'secondController'
-    })
-
+	.when('/',{
+		templateUrl: 'layouts/home.htm',
+		controller:'homeController'
+	})
+	.when('/forecast',{
+		templateUrl: 'layouts/forecast.htm',
+		controller:'forecastController'
+	})
 });
 
-weatherApp.service('newService', function(){
+//CONTROLLERS
 
-	var self = this;
-	this.name = 'Praveen Gonthina';
-	this.namelength = function(){
-	 return self.name.length;
-	};
-
-
-});
-
-// CONTROLLERS
-
-weatherApp.controller('mainController',['$scope','newService', function($scope,newService){
-
-    $scope.people = [{
-		name: 'Praveen G',
-		street: 'PragathiNagar',
-		city: 'Kukatpally',
-		state: 'Hyderabad',
-		pin: '500090'
-	},
-	{
-		name: 'BOB G',
-		street: 'SanathNagar',
-		city: 'Vepagunta',
-		state: 'VSKP',
-		pin: '530027'
-	},
-	{
-		name: 'Revanth M',
-		street: 'VNagar',
-		city: 'Madillapalem',
-		state: 'Vizag',
-		pin: '530036'
-	}
-	]
-
-	$scope.personAddress = function(person) {
-		return  person.street + ',' + person.city + ',' + person.state + ',' +
-			person.pin;
-	}
-
-
+weatherApp.controller('homeContoller',['$scope', function(){
 
 }]);
 
-weatherApp.controller('secondController',['$scope','$routeParams','newService', function($scope,$routeParams,newService){
-    $scope.num = $routeParams.num || 1 ;
-	$scope.name = newService.name;
-	$scope.$watch('name', function(){
-		newService.name = $scope.name;
-	});
-
+weatherApp.controller('forecastContoller',['$scope', function(){
 
 }]);
-weatherApp.directive("searchResult", function(){
-
-	return {
-		restrict: 'AEM',
-		templateUrl: 'templates/search.html',
-		replace: true,
-		scope:{
-			personObject: "=",
-			personAddress: "&"
-		}
-	}
-
-});
-
-
-
-
