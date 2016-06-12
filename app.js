@@ -14,6 +14,10 @@ movieApp.config(function ($routeProvider){
 		templateUrl: 'layouts/movie.htm',
 		controller:'movieController'
 	})
+	.when('/movie/:desc',{
+		templateUrl: 'layouts/movie.htm',
+		controller:'movieController'
+	})
 });
 
 //CUSTOMSERVICES
@@ -35,13 +39,14 @@ movieApp.controller('homeController',['$scope','movieService', function($scope, 
 
 }]);
 
-movieApp.controller('movieController',['$scope','$resource','movieService', function($scope,$resource,movieService){
+movieApp.controller('movieController',['$scope','$resource','$routeParams','movieService', function($scope,$resource,$routeParams,movieService){
 
 	$scope.movie = movieService.movie;
+	$scope.desc = $routeParams.desc || "short";
 
 	$scope.MovieAPI =
 		$resource("http://www.omdbapi.com/?",{callback:"JSON_CALLBACK"},{get:{method:"JSONP"}});
-	$scope.movieResult = $scope.MovieAPI.get({t: $scope.movie, plot: 'short'});
-
+	$scope.movieResult = $scope.MovieAPI.get({t: $scope.movie, plot: $scope.desc});
+console.log($scope.movieResult);
 
 }]);

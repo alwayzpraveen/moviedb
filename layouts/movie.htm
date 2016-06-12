@@ -1,6 +1,11 @@
-
+<p> <a href="#/">Back to search</a></p>
 <div class="panel panel-default">
   <div class="panel-heading">Search Result: {{movieResult.Title}}</div>
+  <hr />
+  <div class="pull-right">
+  Description: <a href="#/movie/short" ng-class="{'bg-primary': desc === 'short'}">Short</a>|
+ 		<a href="#/movie/full"  ng-class="{'bg-primary': desc === 'full'}">Full</a>
+  		</div>
   <div class="panel-body">
   <div class="col-md-4"><img src="{{meaningResult.Poster}}"></div>
    <div class="col-md-6">
