@@ -1,8 +1,8 @@
 // MODULE
-var weatherApp = angular.module('weatherApp',['ngRoute','ngResource']);
+var movieApp = angular.module('movieApp', ['ngRoute','ngResource']);
 
 //ROUTES
-weatherApp.config(function ($routeProvider){
+movieApp.config(function ($routeProvider){
 
 	$routeProvider
 
@@ -10,18 +10,38 @@ weatherApp.config(function ($routeProvider){
 		templateUrl: 'layouts/home.htm',
 		controller:'homeController'
 	})
-	.when('/forecast',{
-		templateUrl: 'layouts/forecast.htm',
-		controller:'forecastController'
+	.when('/movie',{
+		templateUrl: 'layouts/movie.htm',
+		controller:'movieController'
 	})
 });
 
+//CUSTOMSERVICES
+movieApp.service('movieService', function(){
+
+	this.movie = "";
+
+});
+
+
 //CONTROLLERS
 
-weatherApp.controller('homeContoller',['$scope', function(){
+movieApp.controller('homeController',['$scope','movieService', function($scope, movieService){
+
+	$scope.movie = movieService.movie;
+	$scope.$watch('movie', function(){
+		movieService.movie = $scope.movie;
+	});
 
 }]);
 
-weatherApp.controller('forecastContoller',['$scope', function(){
+movieApp.controller('movieController',['$scope','$resource','movieService', function($scope,$resource,movieService){
+
+	$scope.movie = movieService.movie;
+
+	$scope.MovieAPI =
+		$resource("http://www.omdbapi.com/?",{callback:"JSON_CALLBACK"},{get:{method:"JSONP"}});
+	$scope.movieResult = $scope.MovieAPI.get({t: $scope.movie, plot: 'short'});
+
 
 }]);
