@@ -1,10 +1,16 @@
 <div class="row">
 	<div class="col-md-4">
 		<h4>Search for movies</h4>
+		<form ng-submit="submit()">
 		<div class="form-group">
 			<input type="text" ng-model="movie" class="form-control" placeholder="Enter Movie Name" required>
-
 		</div>
-		<a href="#/movie" class="btn btn-primary">Search</a>
+		<div class="form-group">
+	 <input name="movies" value="movie" type="radio" ng-model="type">Movies
+	 <input name="movies" value="series" type="radio" ng-model="type">Series
+	 <input name="movies" value="episode" type="radio" ng-model="type">Episodes
+		</div>
+		<input type="submit" class="btn btn-primary" value="Search">
+		</form>
 	</div>
 </div>
