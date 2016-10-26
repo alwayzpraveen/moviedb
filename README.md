@@ -1,2 +1,3 @@
-# weather
-weather application
+# MovieDB
+Movie Database 
+
